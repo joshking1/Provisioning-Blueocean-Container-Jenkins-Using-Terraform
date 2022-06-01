@@ -1,11 +1,10 @@
-
-
 #!/bin/bash
 sudo yum -y update
 
 echo "Install Java JDK 8"
 yum remove -y java
-yum install -y java-1.8.0-openjdk
+#yum install -y java-1.8.0-openjdk
+sudo yum install java-11-openjdk 
 
 echo "Install Maven"
 yum install -y maven 
@@ -24,6 +23,12 @@ cd /home
 touch hug.yml 
 touch nat.yml 
 
+echo " Install Terraform"
+sudo yum install update -y 
+sudo wget https://releases.hashicorp.com/terraform/1.1.2/terraform_1.1.2_linux_amd64.zip 
+sudo unzip terraform_1.1.2_linux_amd64.zip
+sudo mv terraform /usr/bin/
+terraform --version
 
 echo " Install Terraform"
 sudo yum install update -y 
@@ -42,6 +47,9 @@ systemctl status docker
 #sudo usermod -a -G docker jenkins
 #sudo service docker start
 sudo chkconfig docker on
+
+echo " install Alpine"
+
 
 echo "Install Jenkins"
 docker run \
@@ -67,6 +75,5 @@ sudo systemctl enable jenkins
 sudo systemctl status jenkins
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
-java -jar jenkins.war
-
+java -jar jenkins.war\
 
